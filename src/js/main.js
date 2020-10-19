@@ -36,3 +36,13 @@ let addMoreContent = () => {
 }
 
 window.addEventListener('scroll', addMoreContent);
+
+let url = 'https://jsonplaceholder.typicode.com/photos';
+
+//load data
+async function getDataFrom(url) {
+  let response = await fetch(url);
+  let result = await response.json();
+
+  return result;
+}
