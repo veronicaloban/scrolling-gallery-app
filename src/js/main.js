@@ -24,3 +24,15 @@ let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) =
   cardElement.appendChild(titleName);
   parentElement.appendChild(cardElement);
 }
+
+//to know whether we've reached the bottom of the loaded content
+let addMoreContent = () => {
+  while(true) {
+    let windowBottom = document.documentElement.getBoundingClientRect().bottom;
+
+    if(windowBottom > document.documentElement.clientHeight + 50) break;
+    //'its time to load more data'
+  }
+}
+
+window.addEventListener('scroll', addMoreContent);
