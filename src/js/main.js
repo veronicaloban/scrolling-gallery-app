@@ -1,3 +1,15 @@
+let galleryElement = document.getElementById("gallery");
+
+let numberOfLoads = 1;
+
+//load data
+async function getDataFrom() {
+  let response = await fetch(`https://jsonplaceholder.typicode.com/photos?_page=${numberOfLoads++}&_limit=20`);
+  let result = await response.json();
+
+  return result;
+}
+
 //we create HTML Card elements based on the data loaded
 let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) => {
   let cardElement = document.createElement("div");
@@ -25,24 +37,13 @@ let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) =
   parentElement.appendChild(cardElement);
 }
 
-//to know whether we've reached the bottom of the loaded content
-let addMoreContent = () => {
-  while(true) {
-    let windowBottom = document.documentElement.getBoundingClientRect().bottom;
+getDataFrom().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement)))
 
-    if(windowBottom > document.documentElement.clientHeight + 50) break;
-    //'its time to load more data'
+let addMoreContent = () => {
+    let windowBottom = document.documentElement.scrollTop + document.documentElement.clientHeight;
+    windowBottom + 50 >= document.documentElement.scrollHeight ?
+    getDataFrom().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement))) : false;
   }
-}
+
 
 window.addEventListener('scroll', addMoreContent);
-
-let url = 'https://jsonplaceholder.typicode.com/photos';
-
-//load data
-async function getDataFrom(url) {
-  let response = await fetch(url);
-  let result = await response.json();
-
-  return result;
-}
