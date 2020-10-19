@@ -1,4 +1,4 @@
-let numberOfLoads = 1;
+let numberOfLoads = 0;
 let galleryElement = document.getElementById("gallery");
 
 //load data
@@ -8,7 +8,6 @@ let getDataFromServer = async () => {
 
   return result;
 }
-
 
 //we create HTML Card elements based on the data loaded
 let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) => {
@@ -33,10 +32,10 @@ let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) =
 //load more content when needed
 let addMoreContent = () => {
     let windowBottom = document.documentElement.scrollTop + document.documentElement.clientHeight;
-    windowBottom + 5 >= document.documentElement.scrollHeight ?
+    windowBottom == document.documentElement.scrollHeight ?
     getDataFromServer().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement))) : false;
   }
 
-window.addEventListener('scroll', addMoreContent);
+window.addEventListener('scroll', addMoreContent, false);
 
 getDataFromServer().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement)))
