@@ -24,6 +24,10 @@
   text-align: center;
 }
 
+.card__titleName {
+  text-align: center
+}
+
 @media screen and (max-width: 900px) {
   #gallery {
     grid-template-columns: auto auto auto;
