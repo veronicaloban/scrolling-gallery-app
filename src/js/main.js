@@ -33,7 +33,7 @@ let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) =
 //load more content when needed
 let addMoreContent = () => {
     let windowBottom = document.documentElement.scrollTop + document.documentElement.clientHeight;
-    windowBottom + 50 >= document.documentElement.scrollHeight ?
+    windowBottom + 5 >= document.documentElement.scrollHeight ?
     getDataFromServer().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement))) : false;
   }
 
