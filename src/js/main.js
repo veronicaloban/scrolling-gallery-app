@@ -1,3 +1,15 @@
+let preloaderElem = document.getElementById("preloader");
+let preloaderAnimation = document.getElementById("preloader-animation")
+
+document.body.onload = () => {
+  setTimeout( () => {
+    preloaderElem.classList.add("done");
+    setTimeout( () => {
+      preloaderElem.style.display = none;
+    }, 0)
+  }, 2000)
+}
+
 let numberOfLoads = 0;
 let galleryElement = document.getElementById("gallery");
 
