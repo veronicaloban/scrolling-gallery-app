@@ -1,0 +1,46 @@
+#preloader {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgb(210, 250, 241);
+  opacity: 1;
+  visibility: visible;;
+  transition: 1s all;
+}
+
+#preloader.done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#preloader.done #preloader__animation {
+  display: none;
+}
+
+#preloader__animation {
+  width: 75px;
+  height: 75px;
+  background: silver;
+  border: 1px solid silver;
+  box-sizing: border-box;
+  border-radius: 50px 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: animate-preloader 1s linear infinite alternate;
+}
+
+
+@keyframes animate-preloader {
+  from {
+    left: 45%;
+  }
+
+  to {
+    left: 55%;
+  }
+
+}
+
+export default;
