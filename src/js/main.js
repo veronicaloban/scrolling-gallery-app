@@ -1,14 +1,18 @@
 let preloaderElem = document.getElementById("preloader");
-let preloaderAnimation = document.getElementById("preloader-animation")
+let preloaderAnimation = document.getElementById("preloader-animation");
+
+
 
 document.body.onload = () => {
   setTimeout( () => {
     preloaderElem.classList.add("done");
     setTimeout( () => {
-      preloaderElem.style.display = none;
+      preloaderElem.style.display = "none";
     }, 0)
   }, 2000)
 }
+
+
 
 let numberOfLoads = 0;
 let galleryElement = document.getElementById("gallery");
@@ -41,12 +45,42 @@ let createCardElement = (id, albumId, title, url, thumbnailUrl, parentElement) =
   parentElement.appendChild(cardElement);
 }
 
+let modalWindowContainer = document.getElementById("modal-window-container");
+let modalWindowImageContainer = document.getElementById("modal-window-container__image-container");
+let modalWindowImage = document.getElementById("modal-window-container__image")
+
+let openInModalWindow = (event) => {
+  let url = event.target.getAttribute('src');
+  modalWindowImage.setAttribute('src', url);
+  modalWindowContainer.classList.remove("closed");
+  modalWindowContainer.classList.add("open");
+}
+
+
+galleryElement.addEventListener("click", openInModalWindow)
+
+let closeButton = document.getElementById("modal-window-container__close-button");
+
+let closeModalWindow = () => {
+  modalWindowContainer.classList.remove("open");
+  modalWindowContainer.classList.add("closed");
+}
+
+closeButton.addEventListener("click", closeModalWindow)
+//let closeButton =
+
+
+
+
 //load more content when needed
 let addMoreContent = () => {
     let windowBottom = document.documentElement.scrollTop + document.documentElement.clientHeight;
     windowBottom == document.documentElement.scrollHeight ?
     getDataFromServer().then(data => data.map(item => createCardElement(item.id, item.albumId, item.title, item.url, item.thumbnailUrl, galleryElement))) : false;
   }
+
+
+
 
 window.addEventListener('scroll', addMoreContent, false);
 
